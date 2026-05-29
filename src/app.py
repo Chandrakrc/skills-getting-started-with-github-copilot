@@ -38,6 +38,42 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+    "Basketball Team": {
+        "description": "Practice team drills and compete in school league games",
+        "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:30 PM",
+        "max_participants": 18,
+        "participants": ["nina@mergington.edu"]
+    },
+    "Track and Field": {
+        "description": "Develop speed, endurance, and field event skills",
+        "schedule": "Mondays, Wednesdays, Fridays, 3:30 PM - 5:00 PM",
+        "max_participants": 24,
+        "participants": ["james@mergington.edu"]
+    },
+    "Art Club": {
+        "description": "Explore painting, drawing, and mixed media art projects",
+        "schedule": "Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 16,
+        "participants": ["mia@mergington.edu"]
+    },
+    "Drama Workshop": {
+        "description": "Practice acting, improv, and stage production skills",
+        "schedule": "Thursdays, 4:00 PM - 5:30 PM",
+        "max_participants": 20,
+        "participants": ["liam@mergington.edu"]
+    },
+    "Mathletes": {
+        "description": "Solve challenging math problems and prepare for competitions",
+        "schedule": "Mondays and Thursdays, 4:00 PM - 5:00 PM",
+        "max_participants": 15,
+        "participants": ["noah@mergington.edu"]
+    },
+    "Science Club": {
+        "description": "Explore experiments, STEM projects, and science fair preparation",
+        "schedule": "Tuesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 18,
+        "participants": ["ava@mergington.edu"]
     }
 }
 
@@ -62,6 +98,10 @@ def signup_for_activity(activity_name: str, email: str):
     # Get the specific activity
     activity = activities[activity_name]
 
-    # Add student
+    # Prevent duplicate signups
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400,
+                            detail="Student is already signed up for this activity")
+
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
